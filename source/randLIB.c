@@ -46,10 +46,6 @@
 #endif
 #endif // RANDLIB_PRNG
 
-#ifdef FREERTOS
-extern void arm_random_module_init(void);
-extern uint32_t arm_random_seed_get(void);
-#endif
 /* RAM usage - 16 bytes of state (or a FILE * pointer and underlying FILE, which
  * will include a buffer) */
 #ifdef RANDOM_DEVICE

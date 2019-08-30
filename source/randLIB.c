@@ -73,6 +73,10 @@ static inline uint64_t rol(uint64_t n, int bits)
  * isn't returning multiple seeds itself. Multiplies are rather heavy
  * for lower-end platforms, but this is initialisation only.
  */
+#ifndef UINT64_C
+#define UINT64_C(c) c ## ULL
+#endif
+
 static uint64_t splitmix64(uint64_t *seed)
 {
     uint64_t z = (*seed += UINT64_C(0x9E3779B97F4A7C15));

@@ -17,7 +17,6 @@
 #include <stdint.h>
 #include <limits.h>
 #include "randLIB.h"
-#include "platform/arm_hal_random.h"
 
 /**
  * This library is made for getting random numbers for timing needs in
@@ -90,8 +89,6 @@ void randLIB_seed_random(void)
         random_file = fopen(RANDOM_DEVICE, "rb");
     }
 #else
-    arm_random_module_init();
-
     /* We exclusive-OR with the current state, in case they make this call
      * multiple times,or in case someone has called randLIB_add_seed before
      * this. We don't want to potentially lose entropy.

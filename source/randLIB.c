@@ -52,6 +52,7 @@
 #include <stdio.h>
 static FILE *random_file;
 #else
+#include "arm_hal_random.h"
 static uint64_t state[2];
 #endif
 

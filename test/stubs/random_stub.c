@@ -2,7 +2,8 @@
  * Copyright (c) 2016, 2018, 2021, Pelion and affiliates.
  */
 
-#include "ns_types.h"
+#include <inttypes.h>
+#include <stdbool.h>
 
 static uint32_t seed_value = 4;
 static bool seed_inc = false;

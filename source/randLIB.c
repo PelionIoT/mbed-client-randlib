@@ -52,7 +52,8 @@
 #include <stdio.h>
 static FILE *random_file;
 #else
-#include "arm_hal_random.h"
+#include <stdlib.h>
+#include <time.h>
 static uint64_t state[2];
 #endif
 
@@ -95,19 +96,18 @@ void randLIB_seed_random(void)
      * this. We don't want to potentially lose entropy.
      */
 
+    srand(time(0));
     /* Spell out expressions so we get known ordering of 4 seed calls */
-    uint64_t s = (uint64_t) arm_random_seed_get() << 32;
-    state[0] ^= (s | arm_random_seed_get());
+    uint64_t s = (uint64_t) rand() << 32;
+    state[0] ^= (s | rand());
 
-    s = (uint64_t) arm_random_seed_get() << 32;
-    state[1] ^= s | arm_random_seed_get();
+    s = (uint64_t) rand() << 32;
+    state[1] ^= s | rand();
 
     /* This check serves to both to stir the state if the platform is returning
      * constant seeding values, and to avoid the illegal all-zero state.
      */
-    if (state[0] == state[1]) {
-        randLIB_add_seed(state[0]);
-    }
+    randLIB_add_seed(state[0]);
 #endif // RANDOM_DEVICE
 }
 

@@ -43,18 +43,28 @@ if (enable_coverage_data)
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --coverage")
 endif ()
 
-add_executable(randlib_test
+add_executable(randlib_test EXCLUDE_FROM_ALL
     source/randLIB.c
     test/randlib/randlibtest.cpp
     test/randlib/test_randlib.c
     test/stubs/random_stub.c
 )
 
+# make check, this must be after add_executable!
+add_test(randlib_test randlib_test)
+if (TARGET check)
+    add_dependencies(check randlib_test)
+else()
+    add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND}
+                  DEPENDS randlib_test)
+endif()
+
 target_compile_options(randlib_test PRIVATE -DRANDLIB_PRNG)
 
 target_include_directories(randlib_test PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/mbed-client-randlib)
 target_include_directories(randlib_test PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/)
 target_include_directories(randlib_test PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/test/randlib)
+
 
 target_link_libraries(
     randlib_test

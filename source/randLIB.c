@@ -17,7 +17,6 @@
 #include <stdint.h>
 #include <limits.h>
 #include "randLIB.h"
-#include "platform/arm_hal_random.h"
 
 /**
  * This library is made for getting random numbers for timing needs in
@@ -53,6 +52,8 @@
 #include <stdio.h>
 static FILE *random_file;
 #else
+#include <stdlib.h>
+#include <time.h>
 static uint64_t state[2];
 #endif
 
@@ -90,26 +91,23 @@ void randLIB_seed_random(void)
         random_file = fopen(RANDOM_DEVICE, "rb");
     }
 #else
-    arm_random_module_init();
-
     /* We exclusive-OR with the current state, in case they make this call
      * multiple times,or in case someone has called randLIB_add_seed before
      * this. We don't want to potentially lose entropy.
      */
 
+    srand(time(0));
     /* Spell out expressions so we get known ordering of 4 seed calls */
-    uint64_t s = (uint64_t) arm_random_seed_get() << 32;
-    state[0] ^= (s | arm_random_seed_get());
+    uint64_t s = (uint64_t) rand() << 32;
+    state[0] ^= (s | rand());
 
-    s = (uint64_t) arm_random_seed_get() << 32;
-    state[1] ^= s | arm_random_seed_get();
+    s = (uint64_t) rand() << 32;
+    state[1] ^= s | rand();
 
     /* This check serves to both to stir the state if the platform is returning
      * constant seeding values, and to avoid the illegal all-zero state.
      */
-    if (state[0] == state[1]) {
-        randLIB_add_seed(state[0]);
-    }
+    randLIB_add_seed(state[0]);
 #endif // RANDOM_DEVICE
 }
 

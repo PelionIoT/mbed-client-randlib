@@ -95,14 +95,13 @@ void randLIB_seed_random(void)
      * multiple times,or in case someone has called randLIB_add_seed before
      * this. We don't want to potentially lose entropy.
      */
-
-    srand(time(0));
+    randLIB_add_seed(time(NULL));
     /* Spell out expressions so we get known ordering of 4 seed calls */
-    uint64_t s = (uint64_t) rand() << 32;
-    state[0] ^= (s | rand());
+    uint64_t s = (uint64_t) splitmix64(state[0]) << 32;
+    state[0] ^= (s | splitmix64(state[1]));
 
-    s = (uint64_t) rand() << 32;
-    state[1] ^= s | rand();
+    s = (uint64_t) splitmix64(state[0]) << 32;
+    state[1] ^= s | splitmix64(state[1]);
 
     /* This check serves to both to stir the state if the platform is returning
      * constant seeding values, and to avoid the illegal all-zero state.

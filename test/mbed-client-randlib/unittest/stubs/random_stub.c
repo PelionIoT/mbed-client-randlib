@@ -2,11 +2,15 @@
  * Copyright (c) 2016, 2018, 2021, Pelion and affiliates.
  */
 
-#include <inttypes.h>
-#include <stdbool.h>
+#include "ns_types.h"
 
 static uint32_t seed_value = 4;
 static bool seed_inc = false;
+
+void arm_random_module_init(void)
+{
+
+}
 
 uint32_t arm_random_seed_get(void)
 {

@@ -48,7 +48,7 @@ extern "C" {
 
 /**
   * \brief Init seed for Pseudo Random.
-  * \note `pal_init()` MUST be called before this function.
+  *
   * Makes call(s) to the platform's arm_random_seed_get() to seed the
   * pseudo-random generator.
   *

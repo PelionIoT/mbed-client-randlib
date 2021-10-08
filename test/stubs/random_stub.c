@@ -19,6 +19,10 @@
 static uint32_t seed_value = 4;
 static bool seed_inc = false;
 
+void arm_random_module_init(void)
+{
+}
+
 uint32_t arm_random_seed_get(void)
 {
     uint32_t result = seed_value;

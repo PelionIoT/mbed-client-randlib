@@ -13,24 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#ifndef ARM_HAL_RANDOM_H_
-#define ARM_HAL_RANDOM_H_
-#ifdef __cplusplus
-extern "C" {
-#endif
-/**
- * \brief This function performs Random number driver init.
- */
-extern void arm_random_module_init(void);
-/**
- * \brief Get random library seed value.
- *
- * This function should return as random a value as possible, using
- * hardware sources. Repeated calls should return different values if
- * at all possible.
- */
-extern uint32_t arm_random_seed_get(void);
-#ifdef __cplusplus
+#include <inttypes.h>
+#include <stdbool.h>
+
+static uint32_t seed_value = 4;
+static bool seed_inc = false;
+
+void arm_random_module_init(void)
+{
 }
-#endif
-#endif /* ARM_HAL_RANDOM_H_ */
+
+uint32_t arm_random_seed_get(void)
+{
+    uint32_t result = seed_value;
+    if (seed_inc) {
+        ++seed_value;
+    }
+    return result;
+}
+
+void random_stub_set_seed(uint32_t value, bool increment)
+{
+    seed_value = value;
+    seed_inc = increment;
+}

@@ -22,12 +22,12 @@
 # Run unit tests and produce 'test_detail.xml' output to GTEST_BUILD folder.
 #
 
-TEST_DIR="GTEST_BUILD"
+TEST_DIR="build"
 
 export GTEST_OUTPUT=xml
 mkdir -p ${TEST_DIR}
 cd ${TEST_DIR}
-cmake .. .
+cmake .. -Denable_coverage_data=ON
 make check
 
 # copy produced xml to top level

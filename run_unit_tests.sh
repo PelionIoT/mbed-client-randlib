@@ -19,7 +19,7 @@
 #################################################################################
 #
 #
-# Run unit tests and produce 'test_detail.xml' output to GTEST_BUILD folder.
+# Run unit tests and produce 'test_detail.xml' output to build folder.
 #
 
 TEST_DIR="build"

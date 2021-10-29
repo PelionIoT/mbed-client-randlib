@@ -42,8 +42,10 @@
 /* RANDLIB_PRNG disables this and forces use of the PRNG (useful for test only?) */
 #ifndef RANDLIB_PRNG
 #ifdef __linux
+#ifndef EXTERNAL_RANDOM_SEED
 #define RANDOM_DEVICE "/dev/urandom"
-#endif
+#endif // EXTERNAL_RANDOM_SEED
+#endif // __linux
 #endif // RANDLIB_PRNG
 
 /* RAM usage - 16 bytes of state (or a FILE * pointer and underlying FILE, which
@@ -82,8 +84,10 @@ static uint64_t splitmix64(uint64_t *seed)
 }
 #endif // RANDOM_DEVICE
 
+
 void randLIB_seed_random(void)
 {
+#ifndef EXTERNAL_RANDOM_SEED
 #ifdef RANDOM_DEVICE
     if (!random_file) {
         random_file = fopen(RANDOM_DEVICE, "rb");
@@ -110,6 +114,7 @@ void randLIB_seed_random(void)
         randLIB_add_seed(state[0]);
     }
 #endif // RANDOM_DEVICE
+#endif // EXTERNAL_RANDOM_SEED
 }
 
 void randLIB_add_seed(uint64_t seed)

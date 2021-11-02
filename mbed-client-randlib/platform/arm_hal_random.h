@@ -15,6 +15,9 @@
  */
 #ifndef ARM_HAL_RANDOM_H_
 #define ARM_HAL_RANDOM_H_
+
+#ifndef EXTERNAL_RANDOM_SEED
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -33,4 +36,7 @@ extern uint32_t arm_random_seed_get(void);
 #ifdef __cplusplus
 }
 #endif
+
+#endif // EXTERNAL_RANDOM_SEED
+
 #endif /* ARM_HAL_RANDOM_H_ */

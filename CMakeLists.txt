@@ -28,6 +28,9 @@ option(enable_coverage_data "Enable Coverage data" OFF)
 include(repositories.cmake)
 
 add_library(mbedRandLib STATIC)
+add_library(mbedRandLibInterface INTERFACE)
+target_include_directories(mbedRandLibInterface INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/mbed-client-randlib)
+
 target_sources(mbedRandLib PRIVATE source/randLIB.c)
 
 target_include_directories(mbedRandLib PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/mbed-client-randlib)

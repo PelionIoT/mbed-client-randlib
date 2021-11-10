@@ -48,21 +48,12 @@ if (test_all OR ${CMAKE_PROJECT_NAME} STREQUAL "mbedRandLib")
         set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --coverage")
     endif ()
 
-    add_executable(randlib_test EXCLUDE_FROM_ALL
+    add_executable(randlib_test
         source/randLIB.c
         test/randlib/randlibtest.cpp
         test/randlib/test_randlib.c
         test/stubs/random_stub.c
     )
-
-    # make check, this must be after add_executable!
-    add_test(randlib_test randlib_test)
-    if (TARGET check)
-        add_dependencies(check randlib_test)
-    else()
-        add_custom_target(check COMMAND ${CMAKE_CTEST_COMMAND}
-                    DEPENDS randlib_test)
-    endif()
 
     target_compile_options(randlib_test PRIVATE -DRANDLIB_PRNG)
 

@@ -1,8 +1,8 @@
 # Unit tests
 
-You can run unit tests with script `run_unit_tests.sh`. 
+You can run unit tests with script `run_unit_tests.sh`.
 
-The unit tests are implemented with GoogleTest (gtest) C++ test framework. 
+The unit tests are implemented with GoogleTest (gtest) C++ test framework.
 
 ## Prerequisites
 
@@ -18,7 +18,7 @@ sudo apt-get install gcovr
 
 ## Building and running
 
-Prepare unit test build with `cmake ..` and then run the test with `make check` as follows:
+Prepare unit test build with `cmake ..` and then run the test with `make all test` as follows:
 
 ```
 cd nanomesh-applications/libService/exported-libs/mbed-client-randlib
@@ -26,12 +26,12 @@ mkdir build
 cd build
 cmake ..
 
-make check
+make all test
 ```
 
-### Code coverage 
+### Code coverage
 
-Code coverage is optional feature and it is disabled by default. 
+Code coverage is optional feature and it is disabled by default.
 To enable code coverage use the following command to build the tests:
 ```
 cmake .. -Denable_coverage_data=ON

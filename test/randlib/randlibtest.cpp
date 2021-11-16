@@ -16,12 +16,13 @@
 #include "gtest/gtest.h"
 #include "test_randlib.h"
 
-class randLIB : public testing::Test
-{
-    void SetUp() {
+class randLIB : public testing::Test {
+    void SetUp()
+    {
     }
 
-    void TearDown() {
+    void TearDown()
+    {
     }
 };
 

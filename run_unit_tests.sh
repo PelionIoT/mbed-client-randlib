@@ -28,7 +28,7 @@ export GTEST_OUTPUT=xml
 mkdir -p ${TEST_DIR}
 cd ${TEST_DIR}
 cmake .. -Denable_coverage_data=ON
-make check
+make all test
 
 # copy produced xml to top level
 cp *.xml ..

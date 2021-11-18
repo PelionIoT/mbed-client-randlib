@@ -1,5 +1,5 @@
 #################################################################################
-## Copyright 2021 Pelion.
+## Copyright 2020-2021 Pelion.
 ##
 ## SPDX-License-Identifier: Apache-2.0
 ##
@@ -16,12 +16,23 @@
 ## limitations under the License.
 #################################################################################
 
-# Mbed OS target build
-if(DEFINED MBED_TOOLCHAIN)
-    include(randlib-mbed.cmake)
-else()
-    cmake_minimum_required (VERSION 3.14)
-    project(mbedRandLib)
-    include(randlib.cmake)
-endif()
+add_library(mbed-randlib INTERFACE)
 
+target_include_directories(mbed-randlib
+    INTERFACE
+        mbed-client-randlib
+        mbed-client-randlib/platform
+        include
+        include/mbed-client-randlib
+        include/mbed-client-randlib/platform
+)
+
+target_sources(mbed-randlib
+    INTERFACE
+        source/randLIB.c
+)
+
+target_link_libraries(mbed-randlib
+    INTERFACE
+        mbed-nanostack
+)
